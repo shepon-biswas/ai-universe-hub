@@ -8,7 +8,8 @@ const loadAIData = () =>{
 
 // display AI function
 const displayAIData = AIDatas =>{
-    // console.log(AIDatas);
+    // start spinner
+    toggleSpinner(true);
     const AIDataContainer = document.getElementById('AI-data-container');
     AIDatas.forEach(AIData =>{
         console.log(AIData);
@@ -36,15 +37,23 @@ const displayAIData = AIDatas =>{
                     </div>
                 </div>
               </div>
-        
         `;
         AIDataContainer.appendChild(AIDataDiv);
     })
+    // stop spninner
+    toggleSpinner(false);
 }
 
-// Features list function
-const featuresListItems = () =>{
-
+// Toggle spninner function
+const toggleSpinner = isLoading =>{
+    const spinnerDiv = document.getElementById('spinner');
+    if(isLoading){
+        spinnerDiv.classList.remove('d-none');
+    }
+    else{
+        spinnerDiv.classList.add('d-none');
+    }
 }
+
 
 loadAIData();
