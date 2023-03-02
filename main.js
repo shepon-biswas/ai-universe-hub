@@ -11,7 +11,7 @@ const displayAIData = AIDatas =>{
     // console.log(AIDatas);
     const AIDataContainer = document.getElementById('AI-data-container');
     AIDatas.forEach(AIData =>{
-        // console.log(AIData);
+        console.log(AIData);
         const AIDataDiv = document.createElement('div');
         AIDataDiv.classList.add('col');
         AIDataDiv.innerHTML = `
@@ -24,12 +24,16 @@ const displayAIData = AIDatas =>{
                         <li>${AIData.features[1]? AIData.features[1]: 'Not Available'}</li>
                         <li>${AIData.features[2]? AIData.features[2]: 'Not Available'}</li>
                     </ol>
-                    <h5 class="card-title">${AIData.name}</h5>
-                    <p class="card-text">
-                    This is a longer card with supporting text below as a
-                    natural lead-in to additional content. This content is a
-                    little bit longer.
-                    </p>
+                    <hr>      
+                    <div class="d-flex justify-content-between align-items-center">
+                    <div>
+                        <h5 class="card-title">${AIData.name}</h5>
+                        <p class="fw-light"><i class="fa-solid fa-calendar-days"></i> <span>${AIData.published_in}</span></p>
+                    </div>
+                    <div>
+                    <button class=" p-3 border border-0 rounded-circle bg-danger-subtle"><i class="fa-solid fa-arrow-right"></i></button>
+                    </div>
+                    </div>
                 </div>
               </div>
         
