@@ -1,5 +1,4 @@
 // fetch api
-
 const loadAIData = (isSliced) =>{
     fetch("https://openapi.programming-hero.com/api/ai/tools")
     .then(res => res.json())
@@ -85,7 +84,7 @@ const loadSingleDataInfo = id =>{
 
 // display Single AI data info
 const displayAIDataInfo = singleData =>{
-    console.log(singleData);
+    console.log(singleData.accuracy.score);
     // console.log(singleData.features);
     const modalTitle = document.getElementById('AIDataModalLabel');
     modalTitle.innerText = singleData.tool_name;
@@ -132,7 +131,13 @@ const displayAIDataInfo = singleData =>{
     // single AI Data image
     document.getElementById('data-image').src = singleData.image_link[0];
 
+    // Data accuracy button
+    const accurancyBtn = document.getElementById('data-accuracy-btn');
+    if(singleData.accuracy.score !== null){
+        accurancyBtn.innerText = singleData.accuracy.score + " Accuracy";
+    }else{
+        accurancyBtn.classList.add('d-none');
+    }
 }
 
-// loadSingleDataInfo();
 loadAIData();
