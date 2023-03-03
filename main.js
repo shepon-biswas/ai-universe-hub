@@ -13,7 +13,7 @@ const displayAIData = (AIDatas, isSliced) =>{
     const AIDataContainer = document.getElementById('AI-data-container');
     AIDataContainer.textContent = "";
     const seeAllBtn = document.getElementById('see-all');
-    console.log("seeeee")
+    
         if(!isSliced){
             AIDatas = AIDatas.slice(0,6);
             seeAllBtn.classList.remove('d-none');   
@@ -39,7 +39,13 @@ const displayAIData = (AIDatas, isSliced) =>{
                         <p class="fw-light"><i class="fa-solid fa-calendar-days"></i> <span>${AIData.published_in}</span></p>
                     </div>
                     <div>
-                    <button class=" border border-0 rounded-circle bg-danger-subtle"><i class="fa-solid fa-arrow-right"></i></button>
+                    <button 
+                    onclick = "loadSingleDataInfo('${AIData.id}')"
+                    class=" border border-0 rounded-circle bg-danger-subtle"
+                    data-bs-toggle="modal"
+                    data-bs-target="#AIDataModal">
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </button>
                     </div>
                     </div>
                 </div>
@@ -70,4 +76,20 @@ document.getElementById('see-all').addEventListener('click', function(){
     loadAIData(true);
 });
 
+// Load Single AI Data Info
+const loadSingleDataInfo = id =>{
+    fetch(`https://openapi.programming-hero.com/api/ai/tool/${id}`)
+    .then(res => res.json())
+    .then(data => displayAIDataInfo(data.data));
+}
+
+// display Single AI data info
+const displayAIDataInfo = singleData =>{
+    // console.log(id);
+    const modalTitle = document.getElementById('AIDataModalLabel');
+    modalTitle.innerText = singleData.tool_name;
+
+}
+
+// loadSingleDataInfo();
 loadAIData();
