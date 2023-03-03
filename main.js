@@ -16,9 +16,9 @@ const displayAIData = (AIDatas, isSliced) =>{
         if(!isSliced){
             AIDatas = AIDatas.slice(0,6);
             seeAllBtn.classList.remove('d-none');   
-        }        
+        }     
         AIDatas.forEach(AIData =>{
-        // console.log(AIData);
+            console.log(AIData);
         const AIDataDiv = document.createElement('div');
         AIDataDiv.classList.add('col');
         AIDataDiv.innerHTML = `
@@ -50,13 +50,27 @@ const displayAIData = (AIDatas, isSliced) =>{
                 </div>
               </div>
         `;
-        AIDataContainer.appendChild(AIDataDiv);
+        AIDataContainer.appendChild(AIDataDiv);     
     })
     // stop spninner
     toggleSpinner(false);
-    // hide see all button
-    // seeAllBtn.classList.add('d-none');
-     
+    // sort by date function
+    const sorting = (a, b) => {
+        const dateA = new Date(a.published_in);
+        const dateB = new Date(b.published_in);
+
+        if(dateA < dateB){
+            return 1;
+        }else if (dateA > dateB){
+            return -1;
+        }else{
+            return 0;
+        }
+    };
+    document.getElementById("sorting-btn").addEventListener('click', function(){
+        const sortArray = AIDatas.sort(sorting);
+        displayAIData(sortArray, true);
+    });    
 }
 
 // Toggle spninner function
@@ -130,8 +144,9 @@ const displayAIDataInfo = singleData =>{
 
     // Data accuracy button
     const accurancyBtn = document.getElementById('data-accuracy-btn');
+    const scorePercentage = singleData.accuracy.score * 100;
     if(singleData.accuracy.score !== null){
-        accurancyBtn.innerText = singleData.accuracy.score + " Accuracy";
+        accurancyBtn.innerText = scorePercentage + "% Accuracy";
     }else{
         accurancyBtn.classList.add('d-none');
     }
