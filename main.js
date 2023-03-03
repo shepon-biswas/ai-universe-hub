@@ -84,10 +84,7 @@ const loadSingleDataInfo = id =>{
 
 // display Single AI data info
 const displayAIDataInfo = singleData =>{
-    console.log(singleData.input_output_examples);
-    // console.log(singleData.features);
-    const modalTitle = document.getElementById('AIDataModalLabel');
-    modalTitle.innerText = singleData.tool_name;
+    // Single Data Description
     const dataDesc = document.getElementById('data-description');
     dataDesc.innerText = singleData.description;
 
