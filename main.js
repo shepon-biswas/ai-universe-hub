@@ -84,7 +84,7 @@ const loadSingleDataInfo = id =>{
 
 // display Single AI data info
 const displayAIDataInfo = singleData =>{
-    console.log(singleData.accuracy.score);
+    console.log(singleData.input_output_examples);
     // console.log(singleData.features);
     const modalTitle = document.getElementById('AIDataModalLabel');
     modalTitle.innerText = singleData.tool_name;
@@ -138,6 +138,14 @@ const displayAIDataInfo = singleData =>{
     }else{
         accurancyBtn.classList.add('d-none');
     }
+
+    // example-container section
+
+    const exampleContainer = document.getElementById('example-container');
+    exampleContainer.innerHTML = `
+        <h5>${singleData.input_output_examples[0].input}</h5>
+        <p>${singleData.input_output_examples[0].output}</p>
+    `;
 }
 
 loadAIData();
