@@ -85,7 +85,7 @@ const loadSingleDataInfo = id =>{
 
 // display Single AI data info
 const displayAIDataInfo = singleData =>{
-    console.log(singleData.pricing);
+    console.log(singleData);
     // console.log(singleData.features);
     const modalTitle = document.getElementById('AIDataModalLabel');
     modalTitle.innerText = singleData.tool_name;
@@ -94,11 +94,13 @@ const displayAIDataInfo = singleData =>{
 
     // single data features list
     const featuresList = singleData.features;
-    const FeaturesListDiv = document.getElementById('single-data-features');
+    const featuresListDiv = document.getElementById('single-data-features');
+    featuresListDiv.innerHTML = "";
+    featuresListDiv.innerHTML = `<h5>Features</h5>`;
     for(const list in featuresList){
         const li = document.createElement('li');
         li.innerText = featuresList[list].feature_name;
-        FeaturesListDiv.appendChild(li);
+        featuresListDiv.appendChild(li);
     }
 
     // Single Data Integrations List
@@ -114,15 +116,15 @@ const displayAIDataInfo = singleData =>{
 
     // Single date Pricing section
     document.getElementById('data-basic-plan').innerHTML = `
-    <h5>${singleData.pricing[0].plan}</h5>
-     <p>${singleData.pricing[0].price}</p> 
+    <h5 class="text-primary">${singleData.pricing[0].plan}</h5>
+     <p>${singleData.pricing[0].price = "0" ? "Free of cost" : ""}</p> 
     `;
     document.getElementById('data-pro-plan').innerHTML = `
-    <h5>${singleData.pricing[1].plan}</h5>
-     <p>${singleData.pricing[1].price}</p> 
+    <h5 class="text-success">${singleData.pricing[1].plan}</h5>
+     <p>${singleData.pricing[1].price = "No cost" ? "Free of cost": ""}</p> 
     `;
     document.getElementById('data-enterprise-plan').innerHTML = `
-    <h5>${singleData.pricing[2].plan}</h5>
+    <h5 class="text-danger">${singleData.pricing[2].plan}</h5>
      <p>${singleData.pricing[2].price}</p> 
     `;
 
