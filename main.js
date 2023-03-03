@@ -85,9 +85,50 @@ const loadSingleDataInfo = id =>{
 
 // display Single AI data info
 const displayAIDataInfo = singleData =>{
-    // console.log(id);
+    console.log(singleData.pricing);
+    // console.log(singleData.features);
     const modalTitle = document.getElementById('AIDataModalLabel');
     modalTitle.innerText = singleData.tool_name;
+    const dataDesc = document.getElementById('data-description');
+    dataDesc.innerText = singleData.description;
+
+    // single data features list
+    const featuresList = singleData.features;
+    const FeaturesListDiv = document.getElementById('single-data-features');
+    for(const list in featuresList){
+        const li = document.createElement('li');
+        li.innerText = featuresList[list].feature_name;
+        FeaturesListDiv.appendChild(li);
+    }
+
+    // Single Data Integrations List
+    const integrationsDiv = document.getElementById("single-data-integrations");
+    integrationsDiv.innerHTML = `
+    <h5>Integrations</h5>
+    <ul>
+      <li>${singleData.integrations[0]? singleData.integrations[0] : "Not available feature" }</li>
+      <li>${singleData.integrations[1]? singleData.integrations[1] : "Not available feature" }</li>
+      <li>${singleData.integrations[2]? singleData.integrations[2] : "Not available feature" }</li>
+    </ul>
+    `;
+
+    // Single date Pricing section
+    document.getElementById('data-basic-plan').innerHTML = `
+    <h5>${singleData.pricing[0].plan}</h5>
+     <p>${singleData.pricing[0].price}</p> 
+    `;
+    document.getElementById('data-pro-plan').innerHTML = `
+    <h5>${singleData.pricing[1].plan}</h5>
+     <p>${singleData.pricing[1].price}</p> 
+    `;
+    document.getElementById('data-enterprise-plan').innerHTML = `
+    <h5>${singleData.pricing[2].plan}</h5>
+     <p>${singleData.pricing[2].price}</p> 
+    `;
+
+
+    // single AI Data image
+    document.getElementById('data-image').src = singleData.image_link[0];
 
 }
 
