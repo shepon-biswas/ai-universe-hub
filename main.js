@@ -1,18 +1,25 @@
 // fetch api
 
-const loadAIData = () =>{
+const loadAIData = (isSliced) =>{
     fetch("https://openapi.programming-hero.com/api/ai/tools")
     .then(res => res.json())
-    .then(data => displayAIData(data.data.tools));
+    .then(data => displayAIData(data.data.tools, isSliced));
 }
 
 // display AI function
-const displayAIData = AIDatas =>{
+const displayAIData = (AIDatas, isSliced) =>{
     // start spinner
     toggleSpinner(true);
     const AIDataContainer = document.getElementById('AI-data-container');
-    AIDatas.forEach(AIData =>{
-        console.log(AIData);
+    AIDataContainer.textContent = "";
+    const seeAllBtn = document.getElementById('see-all');
+    console.log("seeeee")
+        if(!isSliced){
+            AIDatas = AIDatas.slice(0,6);
+            seeAllBtn.classList.remove('d-none');   
+        }        
+        AIDatas.forEach(AIData =>{
+        // console.log(AIData);
         const AIDataDiv = document.createElement('div');
         AIDataDiv.classList.add('col');
         AIDataDiv.innerHTML = `
@@ -20,7 +27,7 @@ const displayAIData = AIDatas =>{
                 <img src="${AIData.image}" class="card-img-top " alt="..." />
                 <div class="card-body">
                     <h4>Features</h4>
-                    <ol id = "f">
+                    <ol>
                         <li>${AIData.features[0]? AIData.features[0]: 'Not Available'}</li>
                         <li>${AIData.features[1]? AIData.features[1]: 'Not Available'}</li>
                         <li>${AIData.features[2]? AIData.features[2]: 'Not Available'}</li>
@@ -32,7 +39,7 @@ const displayAIData = AIDatas =>{
                         <p class="fw-light"><i class="fa-solid fa-calendar-days"></i> <span>${AIData.published_in}</span></p>
                     </div>
                     <div>
-                    <button class=" p-3 border border-0 rounded-circle bg-danger-subtle"><i class="fa-solid fa-arrow-right"></i></button>
+                    <button class=" border border-0 rounded-circle bg-danger-subtle"><i class="fa-solid fa-arrow-right"></i></button>
                     </div>
                     </div>
                 </div>
@@ -42,6 +49,9 @@ const displayAIData = AIDatas =>{
     })
     // stop spninner
     toggleSpinner(false);
+    // hide see all button
+    // seeAllBtn.classList.add('d-none');
+     
 }
 
 // Toggle spninner function
@@ -55,5 +65,9 @@ const toggleSpinner = isLoading =>{
     }
 }
 
+// See all button function
+document.getElementById('see-all').addEventListener('click', function(){
+    loadAIData(true);
+});
 
 loadAIData();
