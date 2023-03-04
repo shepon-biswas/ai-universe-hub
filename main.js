@@ -16,9 +16,11 @@ const displayAIData = (AIDatas, isSliced) =>{
         if(!isSliced){
             AIDatas = AIDatas.slice(0,6);
             seeAllBtn.classList.remove('d-none');   
-        }     
+        }else{
+            seeAllBtn.classList.add('d-none'); 
+        }
         AIDatas.forEach(AIData =>{
-            console.log(AIData);
+            // console.log(AIData);
         const AIDataDiv = document.createElement('div');
         AIDataDiv.classList.add('col');
         AIDataDiv.innerHTML = `
@@ -50,8 +52,12 @@ const displayAIData = (AIDatas, isSliced) =>{
                 </div>
               </div>
         `;
-        AIDataContainer.appendChild(AIDataDiv);     
+        AIDataContainer.appendChild(AIDataDiv);
+         
     })
+    if(AIDatas.length === 6){
+        document.getElementById('see-all').classList.remove('d-none');
+    }
     // stop spninner
     toggleSpinner(false);
     // sort by date function
@@ -98,6 +104,7 @@ const loadSingleDataInfo = id =>{
 
 // display Single AI data info
 const displayAIDataInfo = singleData =>{
+    console.log(singleData.integrations);
     // Single Data Description
     const dataDesc = document.getElementById('data-description');
     dataDesc.innerText = singleData.description;
@@ -118,24 +125,24 @@ const displayAIDataInfo = singleData =>{
     integrationsDiv.innerHTML = `
     <h5>Integrations</h5>
     <ul>
-      <li>${singleData.integrations[0]? singleData.integrations[0] : "Not available feature" }</li>
-      <li>${singleData.integrations[1]? singleData.integrations[1] : "Not available feature" }</li>
-      <li>${singleData.integrations[2]? singleData.integrations[2] : "Not available feature" }</li>
+      <li>${singleData.integrations === null ? "Not available feature" : (singleData.integrations[0] ? singleData.integrations[0] : "Not available feature"  )}</li>
+      <li>${singleData.integrations === null ? "Not available feature" : (singleData.integrations[1] ? singleData.integrations[1] : "Not available feature"  )}</li>
+      <li>${singleData.integrations === null ? "Not available feature" : (singleData.integrations[2] ? singleData.integrations[2] : "Not available feature"  )}</li>
     </ul>
     `;
 
     // Single date Pricing section
     document.getElementById('data-basic-plan').innerHTML = `
-    <h5 class="text-primary">${singleData.pricing[0].plan}</h5>
-     <p>${singleData.pricing[0].price = "0" ? "Free of cost" : ""}</p> 
+    <h5 class="text-primary">${singleData.pricing === null ? "No Data Found" : singleData.pricing[0].plan}</h5>
+     <p>${singleData.pricing === null ? "No Data Found" : (singleData.pricing[0].price = "0" ? "Free of cost" : "") }</p> 
     `;
     document.getElementById('data-pro-plan').innerHTML = `
-    <h5 class="text-success">${singleData.pricing[1].plan}</h5>
-     <p>${singleData.pricing[1].price = "No cost" ? "Free of cost": ""}</p> 
+    <h5 class="text-success">${singleData.pricing === null ? "No Data Found" : singleData.pricing[1].plan}</h5>
+     <p>${singleData.pricing === null ? "No Data Found" : singleData.pricing[1].price }</p>  
     `;
     document.getElementById('data-enterprise-plan').innerHTML = `
-    <h5 class="text-danger">${singleData.pricing[2].plan}</h5>
-     <p>${singleData.pricing[2].price}</p> 
+    <h5 class="text-warning">${singleData.pricing === null ? "No Data Found" : singleData.pricing[2].plan}</h5>
+     <p>${singleData.pricing === null ? "No Data Found" : singleData.pricing[2].price }</p>  
     `;
 
 
@@ -155,8 +162,8 @@ const displayAIDataInfo = singleData =>{
 
     const exampleContainer = document.getElementById('example-container');
     exampleContainer.innerHTML = `
-        <h5>${singleData.input_output_examples[0].input}</h5>
-        <p>${singleData.input_output_examples[0].output}</p>
+        <h5>${singleData.input_output_examples === null ? "No Data Found" :  singleData.input_output_examples[0].input}</h5>
+        <p>${singleData.input_output_examples === null ? "No Data Found" :  singleData.input_output_examples[0].output}</p>
     `;
 }
 
